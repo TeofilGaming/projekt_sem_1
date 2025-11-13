@@ -11,7 +11,16 @@ void menu();
 float pobierzC();
 float pobierzF();
 float pobierzK();
-
+int check(float temp, char stopnie);
+void zapiszDane(float pod,float temp, char stopnie_pod, char stopnie_wyn);
+int sprawdzenie;
+float celsius;
+float fahr;
+float kelwin;
+float wyn;
+double dane[99];
+char znak[99];
+int dataCounter = 0;
 int main() {
 	int wybor;
 	while (true) {
@@ -22,23 +31,52 @@ int main() {
 		switch (wybor)
 		{
 		case 1:
-			cout << "Wynik w Celsius: " << FtoC() << endl;
+			wyn = FtoC();
+			zapiszDane(fahr, wyn, 'F','C');
+			cout << "Wynik w Celsius: " << wyn << endl;
 			cout << "Prosze wcisnac enter";
+			cin.ignore();
+			cin.get();
 			break;
 		case 2:
-			cout << "Wynik w Kelwin: " << FtoK() << endl;
+			wyn = FtoK();
+			zapiszDane(fahr, wyn,'F','K');
+			cout << "Wynik w Kelwin: " << wyn << endl;
+			cout << "Prosze wcisnac enter";
+			cin.ignore();
+			cin.get();;
 			break;
 		case 3:
-			cout << "Wynik w Fahr: " << CtoF() << endl;
+			wyn = CtoF();
+			zapiszDane(celsius, wyn,'C','F');
+			cout << "Wynik w Fahr: " << wyn << endl;
+			cout << "Prosze wcisnac enter";
+			cin.ignore();
+			cin.get();
 			break;
 		case 4:
-			cout << "Wynik w Kelwin: " << CtoK() << endl;
+			wyn = CtoK();
+			zapiszDane(celsius, wyn,'C','K');
+			cout << "Wynik w Kelwin: " << wyn << endl;
+			cout << "Prosze wcisnac enter";
+			cin.ignore();
+			cin.get();
 			break;
 		case 5:
-			cout << "Wynik w Celsius: " << KtoC() << endl;
+			wyn = KtoC();
+			zapiszDane(kelwin, wyn,'K','C');
+			cout << "Wynik w Celsius: " << wyn << endl;
+			cout << "Prosze wcisnac enter";
+			cin.ignore();
+			cin.get();
 			break;
 		case 6:
-			cout << "Wynik w Fahr: " << KtoF() << endl;
+			wyn = KtoF();
+			zapiszDane(kelwin, wyn,'K','F');
+			cout << "Wynik w Fahr: " << wyn << endl;
+			cout << "Prosze wcisnac enter";
+			cin.ignore();
+			cin.get();
 			break;
 		case 7:
 			cout << "Koniec programu." << endl;
@@ -49,8 +87,12 @@ int main() {
 			return 0;
 			break;
 		}
+		for (int i = dataCounter; i < dataCounter + 2;i++) {
+
+		}
 	}
 }
+//Funkcje przeliczajace
 float FtoC() {
 	float wynik = (5.0 / 9.0) *(pobierzF() - 32.0);
 	return wynik;
@@ -75,6 +117,7 @@ float KtoF() {
 	float wynik = pobierzK() * 9.0 / 5.0 - 459.67;
 	return wynik;
 }
+//menu wyboru opcji
 void menu() {
 	cout << "1 - przelicz Fahr->Celsius" << endl;
 	cout << "2 - przelicz Fahr->Kelwin" << endl;
@@ -84,47 +127,69 @@ void menu() {
 	cout << "6 - przelicz Kelwin->Fahr" << endl;
 	cout << "7 - zakończ działanie programu" << endl;
 }
+//Funkcje pobierajace wartosci temperatur
 float pobierzC() {
-	float celsius;
 	cout << "Podaj stopnie w Celsius: ";
 	cin >> celsius;
-	check(celsius, 'C');
+	sprawdzenie = check(celsius, 'C');
+	if (sprawdzenie == -999) {
+		return pobierzC();
+	}
 	cout << "Podane stopnie w Celsius: " << celsius << endl;
 	return celsius;
 }
 float pobierzF() {
-	float fahr;
 	cout << "Podaj stopnie w Fahr: ";
 	cin >> fahr;
-	check(fahr, 'F');
+	sprawdzenie = check(fahr, 'F');
+	if (sprawdzenie == -999) {
+		return pobierzF();
+	}
 	cout << "Podane stopnie w Fahr: " << fahr << endl;
 	return fahr;
 }
 float pobierzK() {
-	float kelwin;
 	cout << "Podaj stopnie w Kelwin: ";
 	cin >> kelwin;
-	check(kelwin, 'K');
+	sprawdzenie=check(kelwin, 'K');
+	if(sprawdzenie==-999){
+		return pobierzK();
+	}
 	cout << "Podane stopnie w Kelwin: " << kelwin << endl;
 	return kelwin;
 }
+//funkcja sprawdzajaca poprawnosc wartosci temperatur
 int check(float temp, char stopnie) {
 	if(temp < 0 && (stopnie == 'K' || stopnie=='k')) {
-		cout << "Niepoprawna wartosc temperatury w Kelwinach!\n Prosze wcisnac enter" << endl;
+		cout << "Niepoprawna wartosc temperatury w Kelwinach! Nie moze byc mniejsza od 0\nProsze wcisnac enter" << endl;
 		cin.ignore();
+		cin.get();
 		return -999;
 	}
-	else if (temp < 273.15 && (stopnie == 'C' || stopnie == 'c')) {
-		cout << "Niepoprawna wartosc temperatury w Celsiusach!\n Prosze wcisnac enter" << endl;
+	else if (temp < -273.15 && (stopnie == 'C' || stopnie == 'c')) {
+		cout << "Niepoprawna wartosc temperatury w Celsiusach! Nie moze byc mniejsza od -273.15\nProsze wcisnac enter" << endl;
 		cin.ignore();
+		cin.get();
 		return -999;
 	}
 	else if (temp < -459.67 && (stopnie == 'F' || stopnie == 'f')) {
-		cout << "Niepoprawna wartosc temperatury w Fahr!\n Prosze wcisnac enter" << endl;
+		cout << "Niepoprawna wartosc temperatury w Fahr! Nie moze byc mniejsza od -459.67\nProsze wcisnac enter" << endl;
 		cin.ignore();
+		cin.get();
 		return -999;
 	}
 	else {
 		return temp;
 	}
+}
+//funkcja zapisujaca dane do tablicy
+void zapiszDane(float pod,float temp, char stopnie_pod, char stopnie_wyn) {
+	for (int i = dataCounter; i < dataCounter + 2; i++) {
+		dane[i] = pod;
+		dane[i + 1] = temp;
+	}
+	znak[dataCounter] = stopnie_pod;
+	znak[dataCounter + 1] = stopnie_wyn;
+
+	dataCounter += 2;
 }
