@@ -79,6 +79,23 @@ int main() {
 			cin.get();
 			break;
 		case 7:
+			if(dataCounter==0){
+				cout << "Brak historii przeliczen. Prosze wykonac przeliczenie." << endl;
+				cout << "Prosze wcisnac enter";
+				cin.ignore();
+				cin.get();
+				break;
+			}
+			else {
+				for (int i = 0; i < dataCounter / 2; i++) {
+					cout << "<1> " << dane[i] << znak[i] << " = " << dane[i + 1] << znak[i + 1] << endl;
+				}
+				cout << "Prosze wcisnac enter";
+				cin.ignore();
+				cin.get();
+				break;
+			}
+		case 8:
 			cout << "Koniec programu." << endl;
 			return 0;
 			break;
@@ -125,7 +142,8 @@ void menu() {
 	cout << "4 - przelicz Celsius->Kelwin" << endl;
 	cout << "5 - przelicz Kelwin->Celsius" << endl;
 	cout << "6 - przelicz Kelwin->Fahr" << endl;
-	cout << "7 - zakończ działanie programu" << endl;
+	cout << "7 - pokaz historie" << endl;
+	cout << "8 - zakończ działanie programu" << endl;
 }
 //Funkcje pobierajace wartosci temperatur
 float pobierzC() {
@@ -184,10 +202,8 @@ int check(float temp, char stopnie) {
 }
 //funkcja zapisujaca dane do tablicy
 void zapiszDane(float pod,float temp, char stopnie_pod, char stopnie_wyn) {
-	for (int i = dataCounter; i < dataCounter + 2; i++) {
-		dane[i] = pod;
-		dane[i + 1] = temp;
-	}
+	dane[dataCounter] = pod;
+	dane[dataCounter+1] = temp;
 	znak[dataCounter] = stopnie_pod;
 	znak[dataCounter + 1] = stopnie_wyn;
 
