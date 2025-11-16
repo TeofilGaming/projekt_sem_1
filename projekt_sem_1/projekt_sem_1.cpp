@@ -1,26 +1,7 @@
 ﻿#include <iostream>
 #include <stdlib.h>
+#include "headerFile.h"
 using namespace std;
-float FtoC();
-float FtoK();
-float CtoF();
-float CtoK();
-float KtoC();
-float KtoF();
-void menu();
-float pobierzC();
-float pobierzF();
-float pobierzK();
-int check(float temp, char stopnie);
-void zapiszDane(float pod,float temp, char stopnie_pod, char stopnie_wyn);
-int sprawdzenie;
-float celsius;
-float fahr;
-float kelwin;
-float wyn;
-double dane[99];
-char znak[99];
-int dataCounter = 0;
 int main() {
 	int wybor;
 	while (true) {
